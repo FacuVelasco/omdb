@@ -1,40 +1,23 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import { connect } from "react-redux";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import actions from "../../store/actions";
 import Navbar from "../../components/Navbar";
-// import AuthModal from "../../components/AuthModal";
+import Footer from "../../components/Footer";
+import Search from "../Search";
 
 import s from "./style.scss";
 
 import "semantic-ui-css/semantic.min.css";
 
-class Main extends Component {
-  componentDidMount() {
-    this.props.fetchMe();
-  }
-
-  render() {
-    const { user } = this.props;
-    return (
-      <div className={s.container}>
-        <Navbar isLoggedIn={!!user.id} />
-        {/* <Route path="/login" component={AuthModal} /> */}
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  user: state.user
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchMe: () => dispatch(actions.fetchMe())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main);
+export default () => (
+  <div className={s.container}>
+    <Navbar />
+    <div className={s.content}>
+      <Switch>
+        <Route exact path="/" component={Search} />
+        {/* <Route path="/movies" component={Movies} /> */}
+      </Switch>
+    </div>
+    <Footer />
+  </div>
+);

@@ -4,7 +4,7 @@ import { toggleLoading } from ".";
 
 export const fetchMe = () => dispatch => {
   dispatch(toggleLoading());
-  users
+  return users
     .fetchMe()
     .then(user => {
       dispatch(setUser(user));
@@ -15,7 +15,7 @@ export const fetchMe = () => dispatch => {
     });
 };
 
-const setUser = user => ({
+export const setUser = user => ({
   type: SET_USER,
   user
 });

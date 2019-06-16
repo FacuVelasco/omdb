@@ -1,0 +1,31 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 100;
+}
+
+.title {
+  font-size: 20px;
+  display: flex;
+  margin: 40px 10px;
+  p {
+    padding: 0 10px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: 100%;
+  margin: 10px;
+}
+
+.error {
+  font-size: 18px;
+  color: #8047fa;
+  text-align: right;
+}
