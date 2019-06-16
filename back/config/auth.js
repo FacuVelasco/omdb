@@ -1,5 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const { User } = require("../models");
 
 module.exports = {
   setLocalStrategy(field) {
@@ -9,7 +10,7 @@ module.exports = {
           usernameField: field
         },
         function(value, password, done) {
-          User.findOne({ [field]: value })
+          User.findOne({ where: { [field]: value } })
             .then(user => {
               if (!user || !user.validPassword(password)) {
                 return done(null, false, { message: "Incorrect credentials" });
@@ -26,7 +27,7 @@ module.exports = {
     });
 
     passport.deserializeUser((id, done) => {
-      User.findById(id)
+      User.findByPk(id)
         .then(user => done(null, user))
         .catch(done);
     });

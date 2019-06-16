@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
+const volleyball = require("volleyball");
 
 require("dotenv").config();
 
@@ -21,6 +22,8 @@ app.use(session({ secret: "pochoclo" }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(volleyball);
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api", routes);
@@ -31,7 +34,7 @@ app.get("/*", (req, res) => {
 
 const port = process.env.PORT;
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(connection => {
     const { database, username } = connection.config;
     console.log(
