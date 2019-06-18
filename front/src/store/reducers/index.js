@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 
 import user from "./user";
+import movies from "./movies";
 import { TOGGLE_LOADING } from "../constants";
 
 function loading(s = false, a) {
@@ -9,7 +10,7 @@ function loading(s = false, a) {
 }
 
 export default combineReducers({
-  // movies
+  movies,
   user,
   loading
 });

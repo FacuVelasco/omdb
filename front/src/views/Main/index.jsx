@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Search from "../Search";
+import Movies from "../Movies";
 
 import s from "./style.scss";
 
@@ -15,7 +16,7 @@ export default () => (
     <div className={s.content}>
       <Switch>
         <Route exact path="/" component={Search} />
-        {/* <Route path="/movies" component={Movies} /> */}
+        <Route path="/movies" component={Movies} />
       </Switch>
     </div>
     <Footer />

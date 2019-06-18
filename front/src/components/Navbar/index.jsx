@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import actions from "../../store/actions";
 import AuthModal from "../AuthModal";
@@ -59,13 +60,13 @@ class Navbar extends Component {
   }
 
   renderButtons() {
-    const { isLoggedIn, loading, push, postLogout, user } = this.props;
-    if (loading)
-      return (
-        <div className="ui active dimmer">
-          <div className="ui loader" />
-        </div>
-      );
+    const { isLoggedIn, push, postLogout } = this.props;
+    // if (loading)
+    //   return (
+    //     <div className="ui active dimmer">
+    //       <div className="ui loader" />
+    //     </div>
+    //   );
 
     if (isLoggedIn) {
       return (
@@ -96,7 +97,9 @@ class Navbar extends Component {
     const { showModal, authError } = this.state;
     return (
       <div className={s.container}>
-        <div className={s.logo}>OMDB</div>
+        <Link to="/">
+          <div className={s.logo}>OMDB</div>
+        </Link>
         <div className={s.search}>Search</div>
         <AuthModal
           open={Boolean(showModal)}

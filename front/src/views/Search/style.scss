@@ -1,0 +1,26 @@
+.search {
+  div.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 50px;
+    max-width: 400px;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 15px;
+    .title {
+      margin: 40px;
+    }
+  }
+}
+
+.input {
+  width: 350px;
+  input {
+    border-color: #8047fa;
+  }
+  i:hover {
+    cursor: pointer;
+  }
+}
