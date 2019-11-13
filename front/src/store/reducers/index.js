@@ -2,10 +2,11 @@ import { combineReducers } from "redux";
 
 import user from "./user";
 import movies from "./movies";
-import { TOGGLE_LOADING } from "../constants";
+import { START_LOADING, STOP_LOADING } from "../constants";
 
-function loading(s = false, a) {
-  if (a.type === TOGGLE_LOADING) return !s;
+function loading(s = 0, { type }) {
+  if (type === START_LOADING) return s + 1;
+  if (type === STOP_LOADING) return s - 1;
   return s;
 }
 

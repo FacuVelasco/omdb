@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Container, Header, Button, Icon, Input } from "semantic-ui-react";
-import { connect } from "react-redux";
-
-import actions from "../../store/actions";
+import { Container, Header, Input } from "semantic-ui-react";
 
 import s from "./style.scss";
 
-class Search extends Component {
+export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,10 +20,10 @@ class Search extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { serchMovies, history } = this.props;
+    const { history } = this.props;
     const { input } = this.state;
     if (input) {
-      serchMovies(input).then(() => history.push("/movies"));
+      history.push(`/movies?s=${input}`);
     }
   }
 
@@ -36,7 +33,7 @@ class Search extends Component {
       <div className={s.search}>
         <Container className={s.container}>
           <Header className={s.title} as="h1">
-            Search between hundreds of movies!
+            Search between lots and lots of movies!
           </Header>
           <form onSubmit={this.handleSubmit}>
             <Input
@@ -48,21 +45,11 @@ class Search extends Component {
             />
           </form>
           <p>
-            Maybe I can add some extra search options in the future... maybe
+            I'll add some extra options to the search later...{" "}
+            <small>maybe</small>
           </p>
         </Container>
       </div>
     );
   }
 }
-
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({
-  serchMovies: query => dispatch(actions.searchMovies(query))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Search);

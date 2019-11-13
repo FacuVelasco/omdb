@@ -8,6 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 150px;
+  z-index: 10;
   a {
     color: #fff;
     &:hover {
@@ -24,5 +25,6 @@
   align-items: center;
 }
 
-.buttons {
+.search {
+  font-size: 25px;
 }

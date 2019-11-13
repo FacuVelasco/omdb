@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import qs from "qs";
 
 import actions from "../../store/actions";
 import AuthModal from "../AuthModal";
@@ -61,12 +62,6 @@ class Navbar extends Component {
 
   renderButtons() {
     const { isLoggedIn, push, postLogout } = this.props;
-    // if (loading)
-    //   return (
-    //     <div className="ui active dimmer">
-    //       <div className="ui loader" />
-    //     </div>
-    //   );
 
     if (isLoggedIn) {
       return (
@@ -95,12 +90,13 @@ class Navbar extends Component {
 
   render() {
     const { showModal, authError } = this.state;
+    const { title } = this.props;
     return (
       <div className={s.container}>
         <Link to="/">
           <div className={s.logo}>OMDB</div>
         </Link>
-        <div className={s.search}>Search</div>
+        <div className={s.search}>{title && title.toUpperCase()}</div>
         <AuthModal
           open={Boolean(showModal)}
           tab={showModal}
@@ -114,9 +110,10 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isLoggedIn: !!state.user.id,
-  loading: state.loading
+const mapStateToProps = ({ loading, user }, { search }) => ({
+  isLoggedIn: !!user.id,
+  loading: loading,
+  title: qs.parse(search, { ignoreQueryPrefix: true }).s
 });
 
 const mapDispatchToProps = dispatch => ({

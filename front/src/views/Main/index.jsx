@@ -10,9 +10,9 @@ import s from "./style.scss";
 
 import "semantic-ui-css/semantic.min.css";
 
-export default () => (
+export default ({ location }) => (
   <div className={s.container}>
-    <Navbar />
+    <Navbar search={location.search} />
     <div className={s.content}>
       <Switch>
         <Route exact path="/" component={Search} />

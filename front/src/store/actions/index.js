@@ -1,15 +1,20 @@
 import * as userActions from "./users";
 import * as authActions from "./auth";
 import * as moviesActions from "./movies";
-import { TOGGLE_LOADING } from "../constants";
+import { START_LOADING, STOP_LOADING } from "../constants";
 
-export const toggleLoading = () => ({
-  type: TOGGLE_LOADING
+export const startLoading = () => ({
+  type: START_LOADING
+});
+
+export const stopLoading = () => ({
+  type: STOP_LOADING
 });
 
 export default {
   ...userActions,
   ...authActions,
   ...moviesActions,
-  toggleLoading
+  stopLoading,
+  startLoading
 };

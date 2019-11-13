@@ -1,23 +1,23 @@
 import * as auth from "../../utils/api/auth";
 import { setUser } from "./users";
-import { toggleLoading } from ".";
+import { stopLoading, startLoading } from ".";
 
 export const postLogin = credentials => dispatch => {
-  dispatch(toggleLoading());
+  dispatch(startLoading());
   return auth
     .postLogin(credentials)
     .then(res => res.data)
     .then(user => {
       dispatch(setUser(user));
-      dispatch(toggleLoading());
+      dispatch(stopLoading());
     })
     .catch(() => {
-      dispatch(toggleLoading());
+      dispatch(stopLoading());
       throw new Error("Invalid credentials");
     });
 };
 
-export const postLogout = credentials => dispatch => {
+export const postLogout = () => dispatch => {
   return auth
     .postLogout()
     .then(() => dispatch(setUser({})))
@@ -27,14 +27,14 @@ export const postLogout = credentials => dispatch => {
 };
 
 export const postRegister = credentials => dispatch => {
-  dispatch(toggleLoading());
+  dispatch(startLoading());
   return auth
     .postRegister(credentials)
     .then(() => {
-      dispatch(toggleLoading());
+      dispatch(stopLoading());
     })
     .catch(() => {
-      dispatch(toggleLoading());
+      dispatch(stopLoading());
       throw new Error("Email taken");
     });
 };

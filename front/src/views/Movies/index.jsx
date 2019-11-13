@@ -1,25 +1,53 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Card } from "semantic-ui-react";
+import { Loader } from "semantic-ui-react";
+import qs from "qs";
 
 import s from "./style.scss";
+import actions from "../../store/actions";
+import MovieCard from "../../components/MovieCard";
 
 class Movies extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    const { searchMovies, query, history } = this.props;
+    if (!query.s) {
+      // go search something!
+      history.push("/");
+    }
+    searchMovies(query.s);
   }
 
   render() {
-    return (
-      <div className={s.container}>
-        <h1>Movieesss</h1>
-        here should be the list
-      </div>
-    );
+    const { movies, loading } = this.props;
+    let content = <p className={s.errorMsg}>No movies found ¯\_(ツ)_/¯</p>;
+
+    if (loading) {
+      content = <Loader active inline="centered" />;
+    }
+
+    if (movies.length) {
+      content = (
+        <Card.Group centered>
+          {movies.map(movie => (
+            <MovieCard movie={movie} key={movie.imdbID} />
+          ))}
+        </Card.Group>
+      );
+    }
+
+    return <div className={s.container}>{content}</div>;
   }
 }
 
-const mapStateToProps = state => ({
-  movies: state.movies
+const mapStateToProps = ({ movies, loading }, { location }) => ({
+  query: qs.parse(location.search, { ignoreQueryPrefix: true }),
+  movies,
+  loading
 });
 
-export default connect(mapStateToProps)(Movies);
+const mapDispatchToProps = dispatch => ({
+  searchMovies: query => dispatch(actions.searchMovies(query))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);

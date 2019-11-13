@@ -1,17 +1,17 @@
 import * as users from "../../utils/api/users";
 import { SET_USER } from "../constants";
-import { toggleLoading } from ".";
+import { stopLoading, startLoading } from ".";
 
 export const fetchMe = () => dispatch => {
-  dispatch(toggleLoading());
+  dispatch(startLoading());
   return users
     .fetchMe()
-    .then(user => {
-      dispatch(setUser(user));
-      dispatch(toggleLoading());
+    .then(({ data }) => {
+      dispatch(setUser(data));
+      dispatch(stopLoading());
     })
     .catch(() => {
-      dispatch(toggleLoading());
+      dispatch(stopLoading());
     });
 };
 
